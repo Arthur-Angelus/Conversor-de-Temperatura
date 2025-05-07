@@ -3,11 +3,15 @@ package gui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import model.Temperatura;
 
 public class TelaConversor {
 	
@@ -49,13 +53,13 @@ public class TelaConversor {
 		labelResultado = new JLabel();
 		labelResultado.setText("resultado");
 		labelResultado.setFont(new Font("times new Roman", Font.BOLD, 25));
-		labelResultado.setBounds(130, 150, 150, 20);
+		labelResultado.setBounds(130, 150, 350, 20);
 		
 		labelMensagemErro = new JLabel();
-		labelMensagemErro.setText("erro");
+		labelMensagemErro.setText("...");
 		labelMensagemErro.setFont(new Font("times new Roman", Font.BOLD, 15));
 		labelMensagemErro.setForeground(Color.RED);
-		labelMensagemErro.setBounds(180, 200, 50, 30);
+		labelMensagemErro.setBounds(180, 200, 350, 30);
 		
 		container.add(labelCelsius);
 		container.add(textCelsius);
@@ -63,6 +67,76 @@ public class TelaConversor {
 		container.add(buttonFahreinheit);
 		container.add(labelResultado);
 		container.add(labelMensagemErro);
+		
+		tela.setVisible(true);
+		
+buttonKelvin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					labelMensagemErro.setVisible(false);
+				
+				String Celsius = textCelsius.getText();
+				if (!(Celsius.indexOf(",") == -1)) {
+					Celsius = Celsius.replace(",", ".");
+				}
+				if (!(Celsius.indexOf(" ") == -1)) {
+					Celsius = Celsius.replace(" ", "");
+				}
+				
+				Temperatura temperatura = new Temperatura();
+				temperatura.setCelsius(Double.parseDouble(Celsius));
+				temperatura.converterParaKelvin();			
+				double Kelvin = temperatura.converterParaKelvin();
+				String resultado = Kelvin+" kelvin";
+				
+				labelResultado.setVisible(true);
+				labelResultado.setText(resultado);
+				
+} catch (NumberFormatException exception) {
+					
+					//Esconde o resultado anterior, se tiver
+					labelResultado.setVisible(false);
+					
+					//Deixa a mensagem de erro visivel.
+					labelMensagemErro.setVisible(true);
+					
+				}
+				
+			}
+		});
+		
+		buttonFahreinheit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+				labelMensagemErro.setVisible(false);
+					
+				String Celsius = textCelsius.getText();
+				if (!(Celsius.indexOf(",") == -1)) {
+					Celsius = Celsius.replace(" ", "");
+				}
+				Temperatura temperatura = new Temperatura();
+				temperatura.setCelsius(Double.parseDouble(Celsius));
+				temperatura.converterParaFahreinheit();
+				double Fahrenheit = temperatura.converterParaFahreinheit();
+				String resultado = Fahrenheit+" fahrenheit";
+				
+				labelResultado.setVisible(true);
+				labelResultado.setText(resultado);
+				
+	} catch (NumberFormatException excepcion) {
+		
+		labelResultado.setVisible(false);
+		labelMensagemErro.setVisible(true);
+	}
+				
+			}
+		});
 		
 		tela.setVisible(true);
 		

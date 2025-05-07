@@ -13,7 +13,7 @@ public class Temperatura {
 	}
 
 	public double converterParaKelvin() {
-		double kelvin = celsius + 234.15;
+		double kelvin = celsius + 273.15;
 		return kelvin;
 	}
 
@@ -22,4 +22,12 @@ public class Temperatura {
 		return fahreinheit;
 	}
 
+	public String[] mostrarTemperaturaKelvin() {
+		return (null);
+	}
+
+	public void teste() {
+		System.out.println("Fahrenheit: " + converterParaFahreinheit());
+	}
+	
 }
